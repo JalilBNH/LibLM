@@ -1,6 +1,37 @@
-def main():
-    print("Hello from liblm!")
+from openai import OpenAI
+import requests
 
+def unload_models(model_name: str, host: str = "http://localhost:11434"):
+    """_summary_
+
+    Args:
+        model_name (str): _description_
+        host (_type_, optional): _description_. Defaults to "http://localhost:11434".
+    """
+    
+    response = requests.post(
+        f"{host}/api/generate",
+        json={
+            "model": model_name,
+            "keep_alive": 0
+        }
+    )
+    response.raise_for_status()
+    print(f"Model : {model_name} unloaded !")
+
+def main():
+    client = OpenAI(
+        base_url='http://localhost:11434/v1/',
+        api_key='ollama'
+    )
+    
+    responses_result = client.responses.create(
+        model='mistral',
+        input='How are you ? What languages do you speek ?',
+    )
+    print(responses_result.output_text)
+    
+    unload_models('mistral')
 
 if __name__ == "__main__":
     main()
