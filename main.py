@@ -17,8 +17,7 @@ def unload_models(model_name: str, host: str = "http://localhost:11434"):
         }
     )
     response.raise_for_status()
-    print(f"Model : {model_name} unloaded !")
-
+    
 def main():
     client = OpenAI(
         base_url='http://localhost:11434/v1/',
@@ -27,7 +26,9 @@ def main():
     
     responses_result = client.responses.create(
         model='mistral',
-        input='How are you ? What languages do you speek ?',
+        instructions='Answer to me like a singer trying to rhyme',
+        input='How are you man ?',
+        
     )
     print(responses_result.output_text)
     
