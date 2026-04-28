@@ -9,5 +9,9 @@ wheels/
 # Virtual environments
 .venv
 
+# VScode file
+.vscode 
+
+# Data
 chroma-db
 data
